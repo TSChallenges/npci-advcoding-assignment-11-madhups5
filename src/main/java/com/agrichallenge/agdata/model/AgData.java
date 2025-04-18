@@ -1,5 +1,14 @@
 package com.agrichallenge.agdata.model;
 
+
+import jdk.jfr.DataAmount;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AgData {
 
     private Integer id;
@@ -7,15 +16,5 @@ public class AgData {
     private String region;
     private Integer yield;
     private Integer year;
-
-
-    // TODO: Default constructor - No arguments
-
-
-    // TODO: Parameterized constructor
-
-
-    // TODO: Getters and Setters
-
 
 }

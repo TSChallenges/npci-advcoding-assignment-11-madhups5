@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,12 +30,27 @@ public class AgDataController {
     }
 
     // TODO: GET /api/agdata/crop-count?cropName=corn
-
+    @GetMapping("crop-count")
+    public ResponseEntity<Long> getCount(String cropName) throws IOException {
+        long count = agDataService.getCropCount(cropName);
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
 
     // TODO: GET /api/agdata/average-yield?cropName=wheat
-
+    @GetMapping("average-yield")
+    public ResponseEntity<Double> getAverage(String cropName) throws IOException {
+        double avg = agDataService.getAverageYield(cropName);
+        return new ResponseEntity<>(avg, HttpStatus.OK);
+    }
 
     // TODO: GET /api/agdata/by-region?region=Midwest
-
+    @GetMapping("by-region")
+    public ResponseEntity<List<AgData>> getRegion(String region) throws IOException {
+        List<AgData> list = agDataService.getRecordsByRegion(region);
+        if (list.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Region not found");
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 
 }
